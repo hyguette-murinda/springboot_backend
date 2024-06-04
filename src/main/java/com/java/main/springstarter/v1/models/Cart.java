@@ -15,15 +15,14 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Purchase {
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long purchaseId;
+    private long Id;
     @ManyToOne
     private User user;
-//    @OneToMany(mappedBy = "purchase")
-//    private List<PurchaseItem> purchaseItems = new ArrayList<>();
-    private double totalPrice;
+//    @OneToMany(mappedBy = "cart")
+//    private List<CartItem> cartItems = new ArrayList<>();
 
 }
 
