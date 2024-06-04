@@ -80,6 +80,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/configuration/security",
                         "/swagger-ui.html",
+                        "/api/v1/users/**",
                         "/webjars/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/spring-starter/**").permitAll()
                 .anyRequest()
