@@ -51,14 +51,15 @@ public class AuthenticationController {
     @PostMapping(path = "/signin")
     public ResponseEntity<JwtAuthenticationResponse> signin(@Valid @RequestBody SignInDTO dto) {
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = null;
-
         try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
             jwt = jwtTokenProvider.generateToken(authentication);
         } catch (Exception e) {
             e.printStackTrace();

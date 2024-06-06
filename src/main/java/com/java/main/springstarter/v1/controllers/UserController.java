@@ -79,7 +79,7 @@ public class UserController {
     }
 
     @GetMapping(path="/{id}")
-    public ResponseEntity<User> getById(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<User> getById(@PathVariable(value = "id") int id) {
         return ResponseEntity.ok(this.userService.getById(id));
     }
 
@@ -107,7 +107,7 @@ public class UserController {
 
     @PutMapping(path="/{id}/upload-profile")
     public ResponseEntity<ApiResponse> uploadProfileImage(
-            @PathVariable(value = "id") UUID id,
+            @PathVariable(value = "id") int id,
             @RequestParam("file") MultipartFile document
     ) {
         this.userService.getById(id);

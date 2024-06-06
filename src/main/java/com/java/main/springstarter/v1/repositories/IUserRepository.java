@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface IUserRepository extends JpaRepository<User, UUID> {
+public interface IUserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findById(UUID userID);
+    Optional<User> findById(long userID);
 
     Optional<User> findByEmail(String email);
 

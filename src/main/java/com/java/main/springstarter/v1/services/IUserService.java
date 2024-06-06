@@ -20,13 +20,13 @@ public interface IUserService {
 
     public Page<User> getAll(Pageable pageable);
 
-    public User getById(UUID id);
+    public User getById(long id);
 
     public User create(User user);
 
-    public User update(UUID id, User user);
+    public User update(long id, User user);
 
-    public boolean delete(UUID id);
+    public boolean delete(long id);
 
     public List<User> getAllByRole(ERole role);
 
@@ -40,8 +40,11 @@ public interface IUserService {
 
     public User getByEmail(String email);
 
-    public User changeStatus(UUID id, EUserStatus status);
+    public User changeStatus(long id, EUserStatus status);
 
-    public User changeProfileImage(UUID id, File file);
+    public User changeProfileImage(long id, File file);
+
+
+
 
 }

@@ -6,11 +6,9 @@ import com.java.main.springstarter.v1.exceptions.BadRequestException;
 import com.java.main.springstarter.v1.exceptions.ResourceNotFoundException;
 import com.java.main.springstarter.v1.fileHandling.File;
 import com.java.main.springstarter.v1.models.User;
-import com.java.main.springstarter.v1.repositories.IRoleRepository;
 import com.java.main.springstarter.v1.repositories.IUserRepository;
 import com.java.main.springstarter.v1.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -43,9 +40,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getById(UUID id) {
+    public User getById(long id) {
         return this.userRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("User", "id", id.toString()));
+                () -> new ResourceNotFoundException("User", "id", id));
     }
 
     @Override
@@ -58,9 +55,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User update(UUID id, User user) {
+    public User update(long id, User user) {
         User entity = this.userRepository.findById(id).orElseThrow(
-                () ->  new ResourceNotFoundException("User", "id", id.toString()));
+                () ->  new ResourceNotFoundException("User", "id", id));
 
         Optional<User> userOptional = this.userRepository.findByEmail(user.getEmail());
         if (userOptional.isPresent() && (userOptional.get().getId() != entity.getId()))
@@ -77,7 +74,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public boolean delete(UUID id) {
+    public boolean delete(long id) {
         this.userRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException("User", "id", id));
 
@@ -129,9 +126,9 @@ public class UserServiceImpl implements IUserService {
 
 
     @Override
-    public User changeStatus(UUID id, EUserStatus status) {
+    public User changeStatus(long id, EUserStatus status) {
         User entity = this.userRepository.findById(id).orElseThrow(
-                () ->  new ResourceNotFoundException("User", "id", id.toString()));
+                () ->  new ResourceNotFoundException("User", "id", id));
 
         entity.setStatus(status);
 
@@ -139,9 +136,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User changeProfileImage(UUID id, File file) {
+    public User changeProfileImage(long id, File file) {
         User entity = this.userRepository.findById(id).orElseThrow(
-                () ->  new ResourceNotFoundException("Document", "id", id.toString()));
+                () ->  new ResourceNotFoundException("Document", "id", id));
 
         entity.setProfileImage(file);
         return  this.userRepository.save(entity);

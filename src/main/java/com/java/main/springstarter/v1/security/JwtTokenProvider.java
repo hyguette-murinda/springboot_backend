@@ -13,9 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtTokenProvider {
@@ -30,28 +29,37 @@ public class JwtTokenProvider {
     @Value("${jwt.expiresIn}")
     private int jwtExpirationInMs;
 
-    public String generateToken(Authentication authentication){
+    public String generateToken(Authentication authentication) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
-        Date expiryDate = new Date(now.getTime()+jwtExpirationInMs);
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
-        for (GrantedAuthority role :userPrincipal.getAuthorities()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getAuthority()));
-        }
+        // Convert granted authorities to a set of strings
+        Set<String> grantedAuthorities = userPrincipal.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());
 
+        // Convert user to a map or a DTO
         User authUser = userRepository.findById(userPrincipal.getId()).get();
+        Map<String, Object> authUserMap = new HashMap<>();
+        authUserMap.put("id", authUser.getId());
+        authUserMap.put("username", authUser.getFirstName());
+        authUserMap.put("email", authUser.getEmail());
+        // add other fields as needed
 
-
-        String token = Jwts .builder() .setId(authUser.getId()+"")
-                .setSubject(userPrincipal.getId()+"")
+        String token = Jwts.builder()
+                .setId(String.valueOf(authUser.getId()))
+                .setSubject(String.valueOf(userPrincipal.getId()))
                 .claim("authorities", grantedAuthorities)
-                .claim("user",authUser)
-                .setIssuedAt(new
-                        Date(System.currentTimeMillis())) .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
-        return  token;
+                .claim("user", authUserMap)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(expiryDate)
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+
+        return token;
     }
+
 
 
     public String getUserIdFromToken(String token){

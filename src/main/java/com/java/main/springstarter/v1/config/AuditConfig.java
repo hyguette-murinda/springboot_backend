@@ -11,20 +11,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Configuration
 @EnableJpaAuditing
 public class AuditConfig {
     @Bean
-    public AuditorAware<UUID> auditProvider() {
+    public AuditorAware<Long> auditProvider() {
         return new SpringSecurityAuditAwareImpl();
     }
 }
 
-class SpringSecurityAuditAwareImpl implements AuditorAware<UUID> {
+class SpringSecurityAuditAwareImpl implements AuditorAware<Long> {
     @Override
-    public Optional<UUID> getCurrentAuditor() {
+    public Optional<Long> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || !authentication.isAuthenticated()
