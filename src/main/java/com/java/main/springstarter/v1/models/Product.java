@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -19,6 +20,9 @@ public class Product {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long productId;
+    private String product_code;
+    private long quantity;
+    private Date date;
     private String name;
     private double price;
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -19,11 +20,10 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long purchaseId;
-    @ManyToOne
-    private User user;
-//    @OneToMany(mappedBy = "purchase")
-//    private List<PurchaseItem> purchaseItems = new ArrayList<>();
-    private double totalPrice;
+    private  String productCode ;
+    private  String quantity;
+    private  String total;
+    private Date date;
 
 }
 
