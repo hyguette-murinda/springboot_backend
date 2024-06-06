@@ -21,9 +21,14 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long purchaseId;
     private  String productCode ;
-    private  String quantity;
+    private  long quantity;
     private  double totalPrice;
     private Date date;
+
+    public double calculateTotalPrice(double productPrice) {
+        this.totalPrice = productPrice *  this.quantity;
+        return totalPrice;
+    }
 
 }
 

@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
         product1.setDate(product.getDate());
         product1.setPrice(product.getPrice());
         product1.setQuantity(product.getQuantity());
-        return (Product) productRepository.save(product1);
+        return  productRepository.save(product1);
 
     }
     @Override
