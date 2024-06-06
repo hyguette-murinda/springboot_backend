@@ -23,6 +23,7 @@ public class ProductController {
         Product savedProduct = productService.registerProduct(product);
         return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts(){
         List<Product> products = productService.getAllProducts();

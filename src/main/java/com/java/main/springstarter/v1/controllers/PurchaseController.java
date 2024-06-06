@@ -6,6 +6,7 @@ import com.java.main.springstarter.v1.services.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class PurchaseController {
     private final PurchaseService purchaseService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('NORMAL')")
     public ResponseEntity<Purchase> createPurchase(@RequestBody CreatePurchaseDto purchase){
         Purchase purchase1 = purchaseService.createPurchase(purchase);
         return new ResponseEntity<>(purchase1, HttpStatus.CREATED);
