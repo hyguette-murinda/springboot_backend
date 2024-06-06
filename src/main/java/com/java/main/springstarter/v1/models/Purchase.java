@@ -22,7 +22,7 @@ public class Purchase {
     private long purchaseId;
     private  String productCode ;
     private  String quantity;
-    private  String total;
+    private  double totalPrice;
     private Date date;
 
 }

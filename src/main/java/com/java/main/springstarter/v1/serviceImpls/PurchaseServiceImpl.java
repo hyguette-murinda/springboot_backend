@@ -17,7 +17,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Purchase createPurchase(CreatePurchaseDto purchase) {
         Purchase purchase1 = new Purchase();
-        purchase1.setUser(purchase.getUser());
         purchase1.setTotalPrice(purchase.getTotalPrice());
         return (Purchase) purchaseRepository.save(purchase1);
     }

@@ -1,5 +1,6 @@
 package com.java.main.springstarter.v1.controllers;
 
+import com.java.main.springstarter.v1.dtos.CreateProductDto;
 import com.java.main.springstarter.v1.models.Product;
 import com.java.main.springstarter.v1.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     @PostMapping
-    public ResponseEntity<Product> registerProduct(@RequestBody Product product){
+    public ResponseEntity<Product> registerProduct(@RequestBody CreateProductDto product){
         Product savedProduct = productService.registerProduct(product);
         return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
