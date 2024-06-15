@@ -1,28 +1,34 @@
 package com.java.main.springstarter.v1.models;
 
-import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
-@Getter
-@Setter
+@Table(name = "carts")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cart {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
-    @ManyToOne
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @OneToOne
+    @JsonIgnore
     private User user;
-//    @OneToMany(mappedBy = "cart")
-//    private List<CartItem> cartItems = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cart", orphanRemoval = true)
+    @JsonIgnore
+    private List<CartItem> items = new ArrayList<>();
+    public  Cart(User user){
+        this.user=user;
+    }
 
 }
-

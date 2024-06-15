@@ -51,9 +51,9 @@ public class FileServiceImpl  implements IFileService {
     }
 
     @Override
-    public File getById(UUID id) {
+    public File getById(long id) {
         return this.fileRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("File", "id", id.toString()));
+                () -> new ResourceNotFoundException("File", "id", id));
     }
 
     @Override
@@ -77,10 +77,10 @@ public class FileServiceImpl  implements IFileService {
     }
 
     @Override
-    public boolean delete(UUID id) {
+    public boolean delete(long id) {
         boolean exists = this.fileRepository.existsById(id);
         if (!exists)
-            throw new ResourceNotFoundException("File", "id", id.toString());
+            throw new ResourceNotFoundException("File", "id", id);
         this.fileRepository.deleteById(id);
         return true;
     }
@@ -92,6 +92,11 @@ public class FileServiceImpl  implements IFileService {
 
     @Override
     public File uploadFile(MultipartFile file, String directory, UUID appointeeID) throws InvalidFileException, IOException {
+        return null;
+    }
+
+    @Override
+    public File uploadFile(MultipartFile file, String directory, long appointeeID) throws InvalidFileException, IOException {
         String fileName = handleFileName(Objects.requireNonNull(file.getOriginalFilename()), appointeeID);
         Path path = Paths.get(directory, fileName);
         System.out.println(path.toString());
@@ -118,7 +123,7 @@ public class FileServiceImpl  implements IFileService {
     }
 
     @Override
-    public String handleFileName(String fileName, UUID id)
+    public String handleFileName(String fileName, long id)
             throws InvalidFileException {
 
         String cleanFileName = fileName.replaceAll("[^A-Za-z0-9.()]", "");

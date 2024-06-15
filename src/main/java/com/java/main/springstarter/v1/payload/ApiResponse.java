@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiResponse {
-    private Boolean success;
+    public Boolean success;
     private String message;
     private Object data;
 
@@ -21,6 +21,10 @@ public class ApiResponse {
     }
 
     public ApiResponse(boolean success, Object data) {
+        this.success = success;
+        this.data = data;
+    }
+    public ApiResponse(boolean success) {
         this.success = success;
         this.data = data;
     }

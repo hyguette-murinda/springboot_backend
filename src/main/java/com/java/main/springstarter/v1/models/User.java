@@ -24,7 +24,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name="users", uniqueConstraints = { @UniqueConstraint(columnNames={ "email" }), @UniqueConstraint(columnNames={ "mobile" })})
-public class User extends TimestampAudit {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

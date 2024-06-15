@@ -17,12 +17,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table(name = "files", uniqueConstraints = {@UniqueConstraint(columnNames = "path")})
-public class File extends InitiatorAudit {
+public class File{
     @Id
-    @GeneratedValue(generator = "fileUUID")
-    @GenericGenerator(name = "fileUUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
-    private UUID id;
+    private long id;
 
     @Column(name="name")
     private String name;

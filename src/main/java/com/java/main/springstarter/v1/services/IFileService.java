@@ -29,19 +29,21 @@ public interface IFileService {
 
         public Page<File> getAll(Pageable pageable);
 
-        public File getById(UUID id);
+        public File getById(long id);
 
         public File create(MultipartFile document, String directory);
 
-        public boolean delete(UUID id);
+        public boolean delete(long id);
 
         public Page<File> getAllByStatus(Pageable pageable, EFileStatus status);
 
         public File uploadFile(MultipartFile file, String directory, UUID appointeeID) throws InvalidFileException, IOException;
 
+        File uploadFile(MultipartFile file, String directory, long appointeeID) throws InvalidFileException, IOException;
+
         public String getFileExtension(String fileName);
 
-        public String handleFileName(String fileName, UUID id) throws InvalidFileException;
+        public String handleFileName(String fileName, long id) throws InvalidFileException;
 
         public boolean isValidExtension(String fileName) throws InvalidFileException;
 }

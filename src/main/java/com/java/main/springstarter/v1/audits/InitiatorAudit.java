@@ -20,10 +20,10 @@ public abstract class InitiatorAudit extends TimestampAudit{
 
     @CreatedBy
     @Column(name = "created_by")
-    private UUID createdBy;
+    private long createdBy;
 
 
     @LastModifiedBy
     @Column(name = "updated_by")
-    private UUID updatedBy;
+    private long updatedBy;
 }

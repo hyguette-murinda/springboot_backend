@@ -2,6 +2,7 @@ package com.java.main.springstarter.v1.models;
 
 import javax.persistence.*;
 
+import com.java.main.springstarter.v1.audits.InitiatorAudit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,21 +15,20 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Purchase {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long purchaseId;
-    private  String productCode ;
-    private  long quantity;
-    private  double totalPrice;
-    private Date date;
+@AllArgsConstructor
+public class Purchase extends InitiatorAudit {
 
-    public double calculateTotalPrice(double productPrice) {
-        this.totalPrice = productPrice *  this.quantity;
-        return totalPrice;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @ManyToOne
+    private User user;
+
+    @OneToMany
+    private List<CartItem> purchasedProducts=new ArrayList<>();
+
+    private double total;
 
 }
-

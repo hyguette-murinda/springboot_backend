@@ -14,6 +14,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface IRoleRepository extends JpaRepository<Role, UUID> {
+public interface IRoleRepository extends JpaRepository<Role, Long> {
     Optional<Role> findByName(ERole role);
 }

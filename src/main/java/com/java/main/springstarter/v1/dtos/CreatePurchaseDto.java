@@ -11,6 +11,5 @@ public class CreatePurchaseDto {
     private  double totalPrice;
     private Date date;
 
-
 }
 

@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface IFileRepository extends JpaRepository<File, UUID> {
+public interface IFileRepository extends JpaRepository<File, Long> {
     Page<File> findAllByStatus(Pageable pageable, EFileStatus status);
 
 }

@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping(path = "/api/v1/users")
