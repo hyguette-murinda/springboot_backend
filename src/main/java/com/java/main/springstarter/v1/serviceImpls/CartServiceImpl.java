@@ -33,9 +33,9 @@ public class CartServiceImpl implements CartService {
     }
     @Override
     public CartItem addProductToCart(Long productId, int quantity) {
-        System.out.println("here");
+//        System.out.println("here");
         User user = this.userService.getLoggedInUser();
-        System.out.println(user.getEmail());
+//        System.out.println(user.getEmail());
         Cart cart = this.cartRepository.findByUser_Id(user.getId()).orElseThrow(() -> new BadRequestException("Cart with user id [" + user.getId() + "] not found"));
         Product product = this.productService.findById(productId);
         CartItem cartItem= new CartItem(cart,product,quantity,product.getPrice()*quantity);

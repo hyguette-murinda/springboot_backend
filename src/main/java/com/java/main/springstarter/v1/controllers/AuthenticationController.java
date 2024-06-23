@@ -10,7 +10,7 @@ import com.java.main.springstarter.v1.payload.ApiResponse;
 import com.java.main.springstarter.v1.payload.JwtAuthenticationResponse;
 import com.java.main.springstarter.v1.security.JwtTokenProvider;
 import com.java.main.springstarter.v1.services.IUserService;
-import com.java.main.springstarter.v1.services.MailService;
+//import com.java.main.springstarter.v1.services.MailService;
 import com.java.main.springstarter.v1.utils.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,16 +34,16 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final MailService mailService;
+//    private final MailService mailService;
 
     @Autowired
     public AuthenticationController(IUserService userService, AuthenticationManager authenticationManager,
-                                    JwtTokenProvider jwtTokenProvider, MailService mailService,
+                                    JwtTokenProvider jwtTokenProvider,
                                     BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
-        this.mailService = mailService;
+//        this.mailService = mailService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -68,18 +68,18 @@ public class AuthenticationController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
-    @PostMapping(path = "/initiate-reset-password")
-    public ResponseEntity<ApiResponse> initiateResetPassword(@RequestBody @Valid InitiatePasswordDTO dto) {
-        User user = this.userService.getByEmail(dto.getEmail());
-        user.setActivationCode(Utility.randomUUID(6, 0, 'N'));
-        user.setStatus(EUserStatus.RESET);
-
-        this.userService.create(user);
-
-        mailService.sendResetPasswordMail(user.getEmail(), user.getFirstName() + " " + user.getLastName(), user.getActivationCode());
-
-        return ResponseEntity.ok(new ApiResponse(true, "Please check your mail and activate account"));
-    }
+//    @PostMapping(path = "/initiate-reset-password")
+//    public ResponseEntity<ApiResponse> initiateResetPassword(@RequestBody @Valid InitiatePasswordDTO dto) {
+//        User user = this.userService.getByEmail(dto.getEmail());
+//        user.setActivationCode(Utility.randomUUID(6, 0, 'N'));
+//        user.setStatus(EUserStatus.RESET);
+//
+//        this.userService.create(user);
+//
+//        mailService.sendResetPasswordMail(user.getEmail(), user.getFirstName() + " " + user.getLastName(), user.getActivationCode());
+//
+//        return ResponseEntity.ok(new ApiResponse(true, "Please check your mail and activate account"));
+//    }
 
 
     @PostMapping(path = "/reset-password")
